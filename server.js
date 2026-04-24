@@ -3,7 +3,13 @@ const app = express();
 const path = require('path');
 
 app.use(express.json());
-app.use(express.static('public'));
+// إخبار السيرفر بمكان الملفات
+app.use(express.static(path.join(__dirname, 'public')));
+
+// عرض الصفحة الرئيسية
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // استقبال الطلبات
 app.post('/api/order', (req, res) => {
@@ -13,4 +19,4 @@ app.post('/api/order', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Jaberger server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running`));
